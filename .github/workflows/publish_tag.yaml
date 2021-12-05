@@ -24,7 +24,7 @@ jobs:
           rm -rf $TRACKED
       - name: Copy to target
         run: |
-          for f in "$TO_COPY"; do
+          for f in $TO_COPY; do
             cp -r "$f" ../$TARGET_DIR;
           done
           pwd
