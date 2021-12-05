@@ -1,6 +1,6 @@
 # GitHub Action that runs unit tests in an incoming pull request.
 #
-name: copy_tag
+name: copy
 on:
   push:
     branches: [master]
@@ -37,7 +37,7 @@ jobs:
           CM=${{ github.event.head_commit.message }}
           cd ../$TARGET_DIR
           git add .
-          git commit -m "$CM"
+          git commit -m "$CM" || true
           if [[ "$BRANCH_NAME" = "master" ]]; then
               git push origin master
           else
