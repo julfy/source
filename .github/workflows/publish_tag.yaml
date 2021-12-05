@@ -1,17 +1,26 @@
 # GitHub Action that runs unit tests in an incoming pull request.
 #
-name: unit_tests_pull_request
+name: copy_tag
 on:
   push:
     branches: [master]
 jobs:
   copy:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
     steps:
-      - name: Copy
-        env:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
+      - name: Checkout source
+        uses: actions/checkout@v2
+      - name: Show
         run: |
           ls -al
           echo =========
           cat to_copy_content
+      - name: Checkout target
+        run: |
+          cd ..
+          git "https://$GITHUB_ACCESS_TOKEN@github.com/julfy/copy.git" target_repo
+      - name: Copy
+        run: |
+          ls -al
