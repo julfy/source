@@ -4,23 +4,24 @@ name: copy_tag
 on:
   push:
     branches: [master]
+    tags: [*]
 jobs:
   copy:
     runs-on: ubuntu-latest
     env:
       GITHUB_ACCESS_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
+      TO_COPY: "to_copy to_copy_content"
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
-      - name: Show
-        run: |
-          ls -al
-          echo =========
-          cat to_copy_content
-      - name: Checkout target
+      - name: Checkout and clean target
         run: |
           cd ..
-          git clone "https://$GITHUB_ACCESS_TOKEN@github.com/julfy/copy.git" target_repo
+          git clone "https://$GITHUB_ACCESS_TOKEN@github.com/julfy/copy.git" target
+          cd target
+          TRACKED=$(git ls-files | cut -d '/' -f 1 | sort | uniq)
+          rm -r $TRACKED
+          ls -al
       - name: Copy
         run: |
           ls -al ..
