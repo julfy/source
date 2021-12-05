@@ -11,17 +11,25 @@ jobs:
     env:
       GITHUB_ACCESS_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
       TO_COPY: "to_copy to_copy_content"
+      TARGET_DIR: "target"
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
       - name: Checkout and clean target
         run: |
           cd ..
-          git clone "https://$GITHUB_ACCESS_TOKEN@github.com/julfy/copy.git" target
-          cd target
+          git clone "https://$GITHUB_ACCESS_TOKEN@github.com/julfy/copy.git" $TARGET_DIR
+          cd $TARGET_DIR
           TRACKED=$(git ls-files | cut -d '/' -f 1 | sort | uniq)
           rm -r $TRACKED
           ls -al
-      - name: Copy
+      - name: Copy to target
         run: |
-          ls -al ..
+          for f in $TO_COPY:
+            cp -r $f ../$TARGET_DIR
+          pwd
+          echo -la
+      - name: Commit and push
+        run: |
+          echo $GITHUB_REF
+          echo ${GITHUB_REF#refs/heads/
