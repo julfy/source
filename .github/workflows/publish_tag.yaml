@@ -36,7 +36,8 @@ jobs:
           cd ../$TARGET_DIR
           echo "$BRANCH_NAME"
           echo "$CM"
-          git checkout "$BRANCH_NAME" || git checkout "$BRANCH_NAME"
+          git checkout "$BRANCH_NAME" || git checkout -b "$BRANCH_NAME"
+          echo '======='
           git add .
           git commit -m "$CM"
           if [ -eq "$BRANCH_NAME" "master" ]; then
