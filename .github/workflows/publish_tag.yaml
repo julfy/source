@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_ACCESS_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
-      TO_COPY: ".gitignore to_copy to_copy_content"
+      TO_COPY: "to_copy to_copy_content"
       TARGET_DIR: "target"
     steps:
       - name: Checkout source
