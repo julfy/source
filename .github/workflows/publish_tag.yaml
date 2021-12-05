@@ -22,11 +22,11 @@ jobs:
           cd $TARGET_DIR
           TRACKED=$(git ls-files | cut -d '/' -f 1 | sort | uniq)
           rm -r $TRACKED
-          ls -al
       - name: Copy to target
         run: |
-          for f in $TO_COPY:
-            cp -r $f ../$TARGET_DIR
+          for f in $TO_COPY; do
+            cp -r $f ../$TARGET_DIR;
+          done
           pwd
           echo -la
       - name: Commit and push
