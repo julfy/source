@@ -1,0 +1,17 @@
+# GitHub Action that runs unit tests in an incoming pull request.
+#
+name: unit_tests_pull_request
+on:
+  push:
+    branches: [master]
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
+        run: |
+          ls -al
+          echo =========
+          cat to_copy_content
