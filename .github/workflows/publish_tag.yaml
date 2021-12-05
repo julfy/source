@@ -32,4 +32,4 @@ jobs:
       - name: Commit and push
         run: |
           echo $GITHUB_REF
-          echo ${GITHUB_REF#refs/heads/
+          echo ${GITHUB_REF#refs/heads/}
