@@ -23,4 +23,4 @@ jobs:
           git clone "https://$GITHUB_ACCESS_TOKEN@github.com/julfy/copy.git" target_repo
       - name: Copy
         run: |
-          ls -al
+          ls -al ..
