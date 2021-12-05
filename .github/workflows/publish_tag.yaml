@@ -36,16 +36,11 @@ jobs:
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           CM=${{ github.event.head_commit.message }}
           cd ../$TARGET_DIR
-          echo "$BRANCH_NAME"
-          echo "$CM"
-          git checkout "$BRANCH_NAME" || git checkout -b "$BRANCH_NAME"
-          echo '======='
           git add .
           git commit -m "$CM"
-          if [ -eq "$BRANCH_NAME" "master" ]; then
-              echo ">>>> master";
+          if [[ "$BRANCH_NAME" = "master" ]]; then
+              git push origin master
           else
-              echo ">>>> tag";
+              git tag "$BRANCH_NAME"
+              git push origin --tags
           fi
-          git tag "$BRANCH_NAME"
-          git push origin --tags
