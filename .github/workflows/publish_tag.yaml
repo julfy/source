@@ -20,6 +20,8 @@ jobs:
           cd ..
           git clone "https://$GITHUB_ACCESS_TOKEN@github.com/julfy/copy.git" $TARGET_DIR
           cd $TARGET_DIR
+          git config --global user.email "team@datatron.com"
+          git config --global user.name "Mr. Github Workflow"
           TRACKED=$(git ls-files | cut -d '/' -f 1 | sort | uniq)
           rm -rf $TRACKED
       - name: Copy to target
