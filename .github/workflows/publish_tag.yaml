@@ -37,6 +37,7 @@ jobs:
           TAG_NAME="${GITHUB_REF#refs/tags/}"
           TAG_MSG="$(git tag -l --format='%(subject)
           %(body)' $TAG_NAME)"
+          echo ">>>>> $TAG_MSG"
           CM=${{ github.event.head_commit.message }}
           cd ../$TARGET_DIR
           git add .
