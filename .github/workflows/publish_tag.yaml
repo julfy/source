@@ -42,9 +42,9 @@ jobs:
               git push origin master
           else
               echo '====='
-              git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs
-              git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME
-              TAG_MSG="$(git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs; git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME)"
+              git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs || true
+              git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME || true
+              TAG_MSG="$(git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs || true; git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME || true)"
               echo ">>>>> $TAG_MSG"
               git tag "$TAG_NAME" -m "$TAG_MSG"
               git push origin --tags
