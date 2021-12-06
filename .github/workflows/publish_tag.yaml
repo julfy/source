@@ -36,10 +36,12 @@ jobs:
           CM="${{ github.event.head_commit.message }}"
           cd ../$TARGET_DIR
           git add .
+          echo '111111'
           git commit -m "$CM" || true
           if [[ "$BRANCH_NAME" = "master" ]]; then
               git push origin master
           else
+              echo '====='
               TAG_MSG="$(git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs; git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME)"
               echo ">>>>> $TAG_MSG"
               git tag "$TAG_NAME" -m "$TAG_MSG"
