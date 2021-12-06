@@ -33,19 +33,13 @@ jobs:
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           TAG_NAME="${GITHUB_REF#refs/tags/}"
-          CM="${{ github.event.head_commit.message }}"
+          MESSAGE="${{ github.event.head_commit.message }}"
           cd ../$TARGET_DIR
           git add .
-          echo '111111'
-          git commit -m "$CM" || true
+          git commit -m "$MESSAGE" || true
           if [[ "$BRANCH_NAME" = "master" ]]; then
               git push origin master
           else
-              echo '====='
-              git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs || true
-              git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME || true
-              TAG_MSG="$(git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs || true; git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME || true)"
-              echo ">>>>> $TAG_MSG"
-              git tag "$TAG_NAME" -m "$TAG_MSG"
+              git tag "$TAG_NAME" -m "$MESSAGE"
               git push origin --tags
           fi
