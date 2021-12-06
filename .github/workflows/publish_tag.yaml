@@ -29,8 +29,6 @@ jobs:
           for f in $TO_COPY; do
             cp -r "$f" ../$TARGET_DIR;
           done
-          pwd
-          echo -la
       - name: Commit and tag
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
