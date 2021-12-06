@@ -35,8 +35,7 @@ jobs:
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           TAG_NAME="${GITHUB_REF#refs/tags/}"
-          TAG_MSG="$(git tag -l --format='%(subject)
-          %(body)' $TAG_NAME)"
+          TAG_MSG="$(git tag -l $TAG_NAME -n1 | cut -f 2- -d ' ' | xargs; git tag -l -n1000 $TAG_NAME | grep -v $TAG_NAME)"
           echo ">>>>> $TAG_MSG"
           CM=${{ github.event.head_commit.message }}
           cd ../$TARGET_DIR
